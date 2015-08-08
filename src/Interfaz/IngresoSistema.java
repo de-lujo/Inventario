@@ -71,7 +71,7 @@ public class IngresoSistema extends javax.swing.JFrame {
             if(cantidad>1){
                 this.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Bienvenido Vendedor");
-                     VentanaAdmin ingreso = new VentanaAdmin();
+                    VentanaAdmin ingreso = new VentanaAdmin();
                     ingreso.setVisible(true);
                     ingreso.pack();
             } 
