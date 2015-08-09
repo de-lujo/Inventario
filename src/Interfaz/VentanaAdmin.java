@@ -53,7 +53,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGap(0, 557, Short.MAX_VALUE)
         );
 
         inicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/inicio.gif"))); // NOI18N
@@ -146,9 +146,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 17, Short.MAX_VALUE)
-                .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -170,7 +168,9 @@ public class VentanaAdmin extends javax.swing.JFrame {
        
         AgregarUsers addUser = new AgregarUsers();
         escritorio.add(addUser);
+        addUser.setLocation(150, 150);
         addUser.show();
+        
         
     }//GEN-LAST:event_agregarUsuarioActionPerformed
 
@@ -178,6 +178,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
         
         EditarUsers editUser = new EditarUsers();
         escritorio.add(editUser);
+        editUser.setLocation(150, 150);
         editUser.show();
            
     }//GEN-LAST:event_editarUsuarioActionPerformed
