@@ -45,7 +45,6 @@ public class AgregarUsers extends javax.swing.JInternalFrame {
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
-        setResizable(true);
         setTitle("Agregar Nuevo Usuario");
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.jpg"))); // NOI18N
