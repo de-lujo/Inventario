@@ -35,6 +35,9 @@ public class VentanaAdmin extends javax.swing.JFrame {
         iniciarDia = new javax.swing.JMenuItem();
         finalizarDia = new javax.swing.JMenuItem();
         productos = new javax.swing.JMenu();
+        agregarProductos = new javax.swing.JMenuItem();
+        editarProducto = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         ventas = new javax.swing.JMenu();
         reportes = new javax.swing.JMenu();
         devoluciones = new javax.swing.JMenu();
@@ -95,6 +98,34 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
         productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/productos.gif"))); // NOI18N
         productos.setText("Productos");
+
+        agregarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/agregarProducto.gif"))); // NOI18N
+        agregarProductos.setText("Agregar Productos");
+        agregarProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarProductosActionPerformed(evt);
+            }
+        });
+        productos.add(agregarProductos);
+
+        editarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizarProducto.jpg"))); // NOI18N
+        editarProducto.setText("Editar Productos");
+        editarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarProductoActionPerformed(evt);
+            }
+        });
+        productos.add(editarProducto);
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminarProducto.gif"))); // NOI18N
+        jMenuItem3.setText("Eliminar Productos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        productos.add(jMenuItem3);
+
         jMenuBar2.add(productos);
 
         ventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ventas.png"))); // NOI18N
@@ -132,6 +163,11 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
         eliminarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminarUsuario.png"))); // NOI18N
         eliminarUsuario.setText("Eliminar Usuarios");
+        eliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarUsuarioActionPerformed(evt);
+            }
+        });
         usuarios.add(eliminarUsuario);
 
         jMenuBar2.add(usuarios);
@@ -168,7 +204,8 @@ public class VentanaAdmin extends javax.swing.JFrame {
        
         AgregarUsers addUser = new AgregarUsers();
         escritorio.add(addUser);
-        addUser.setLocation(150, 150);
+        addUser.setLocation(100, 100);
+        addUser.pack();
         addUser.show();
         
         
@@ -178,10 +215,52 @@ public class VentanaAdmin extends javax.swing.JFrame {
         
         EditarUsers editUser = new EditarUsers();
         escritorio.add(editUser);
-        editUser.setLocation(150, 150);
+        editUser.setLocation(100, 100);
+        editUser.pack();
         editUser.show();
            
     }//GEN-LAST:event_editarUsuarioActionPerformed
+
+    private void eliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarUsuarioActionPerformed
+        
+    EliminarUsers eliminarUser = new EliminarUsers();
+    escritorio.add(eliminarUser);
+    eliminarUser.setLocation(100,100);
+    eliminarUser.pack();
+    eliminarUser.setVisible(true);
+    eliminarUser.show();
+        
+        
+        
+    }//GEN-LAST:event_eliminarUsuarioActionPerformed
+
+    private void editarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarProductoActionPerformed
+        
+        
+    EditarProducts editarProducts = new EditarProducts();
+    escritorio.add(editarProducts);
+    editarProducts.setLocation(100, 100);
+    editarProducts.pack();
+    editarProducts.setVisible(true);
+    editarProducts.show();
+        
+    }//GEN-LAST:event_editarProductoActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void agregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductosActionPerformed
+       
+    AgregarProducts agregarProducts = new AgregarProducts();
+    escritorio.add(agregarProducts);
+    agregarProducts.setLocation(100, 100);
+    agregarProducts.pack();
+    agregarProducts.setVisible(true);
+    agregarProducts.show();
+        
+        
+    }//GEN-LAST:event_agregarProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,9 +286,11 @@ public class VentanaAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem agregarProductos;
     private javax.swing.JMenuItem agregarUsuario;
     private javax.swing.JMenuItem cerrarSesion;
     private javax.swing.JMenu devoluciones;
+    private javax.swing.JMenuItem editarProducto;
     private javax.swing.JMenuItem editarUsuario;
     private javax.swing.JMenuItem eliminarUsuario;
     private javax.swing.JDesktopPane escritorio;
@@ -217,6 +298,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
     private javax.swing.JMenuItem iniciarDia;
     private javax.swing.JMenu inicio;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu productos;
     private javax.swing.JMenu reportes;
     private javax.swing.JMenu tienda;

@@ -5,6 +5,18 @@
  */
 package Negocio;
 
+import DAO.Conexion;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import mysql.Conector;
+
 /**
  *
  * @author CRAVELO
@@ -18,6 +30,7 @@ public class Producto {
     private String sexo; 
     private String codigoBarra; 
     private String descuento; 
+    static Conector c= new Conector();
 
     public Producto(double valorCosto, double valorVenta, String talla, String color, String sexo, String codigoBarra, String descuento) {
         this.valorCosto = valorCosto;
@@ -28,6 +41,11 @@ public class Producto {
         this.codigoBarra = codigoBarra;
         this.descuento = descuento;
     }
+
+    public Producto() {
+
+    }
+    
 
     public double getValorCosto() {
         return valorCosto;
@@ -84,8 +102,92 @@ public class Producto {
     public void setDescuento(String descuento) {
         this.descuento = descuento;
     }
-   
     
     
     
+     public static void insertarProducto(String Consulta) throws SQLException{
+     
+        
+        //Conector c= new Conector();
+        PreparedStatement pst= c.conexion.prepareStatement(Consulta);
+        pst.executeUpdate();
+     
+     
+     
+     }
+     
+     public static void rescatarProducto (String Consulta, JTable tablas, ArrayList<Integer> lista_id) throws SQLException{
+         
+            //Conector c= new Conector();
+            PreparedStatement pst= c.conexion.prepareStatement(Consulta);
+            ResultSet rs= pst.executeQuery(Consulta);
+            ResultSetMetaData rsm = rs.getMetaData();
+            
+            ArrayList<Object[]> datos=new ArrayList<>();   
+            
+            while (rs.next()) {            
+                
+                System.out.println(rsm.getColumnCount());
+                
+                 Object[] filas=new Object[rsm.getColumnCount()-1];
+                 for (int i = 0; i < filas.length; i++) {
+                     
+                     if (i == 0) {
+                     
+                        lista_id.add((Integer) rs.getObject(1));
+                      }
+                     
+                     filas[i]=rs.getObject(i+2);
+
+                 }
+                 
+                 //tengo el id, debo realizar evento de listener a cada item seleccionado
+                 datos.add(filas);
+             }
+            
+            DefaultTableModel dtm=(DefaultTableModel)tablas.getModel();
+            
+            if (datos.size() == 0){
+    
+               for (int i = 0; i < dtm.getRowCount(); i++) {
+                dtm.removeRow(i);
+                
+               }
+               JOptionPane.showMessageDialog(null, "No existe resultados.");
+          
+
+            }
+            
+            
+            else {
+                
+            for (int i = 0; i <datos.size(); i++) {
+                dtm.addRow(datos.get(i));
+             }
+            }
+        
+    }
+     
+     
+     
+     
+     public static void mostrarProducto(int id) throws SQLException{
+     
+         String Consulta="SELECT *FROM producto where N_producto=" + id+";";
+         PreparedStatement pst= c.conexion.prepareStatement(Consulta);
+         ResultSet rs= pst.executeQuery(Consulta);
+         ResultSetMetaData rsm = rs.getMetaData();
+         
+  
+         
+         // rs.getString(2);
+        
+     
+     
+     
+     
+     }
+     
+
+        
 }
