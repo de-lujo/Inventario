@@ -5,6 +5,11 @@
  */
 package Interfaz;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.WindowConstants;
+
 /**
  *
  * @author Ian Quiroga
@@ -169,6 +174,13 @@ public class VentanaAdmin extends javax.swing.JFrame {
         AgregarUsers addUser = new AgregarUsers();
         escritorio.add(addUser);
         addUser.setLocation(150, 150);
+        
+        addUser.pack();
+        addUser.setResizable(true);
+        addUser.setClosable(true);
+        
+        //VentanaAdmin.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        addUser.setVisible(true);
         addUser.show();
         
         
@@ -176,10 +188,14 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
     private void editarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarUsuarioActionPerformed
         
-        EditarUsers editUser = new EditarUsers();
-        escritorio.add(editUser);
-        editUser.setLocation(150, 150);
-        editUser.show();
+        try {
+            EditarUsers editUser = new EditarUsers();
+            escritorio.add(editUser);
+            editUser.setLocation(150, 150);
+            editUser.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
            
     }//GEN-LAST:event_editarUsuarioActionPerformed
 
