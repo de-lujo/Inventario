@@ -16,7 +16,7 @@ public class Vendedores implements Serializable{
     public static final String nomTabla = "Vendedor";
     public static final String SELECT_ALL = "select * from Vendedor";
     
-    private int  id;
+    private String  id;
     private String usuario;
     private String nombre;
     private String apellido;
@@ -31,11 +31,11 @@ public class Vendedores implements Serializable{
     
     } 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

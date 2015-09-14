@@ -21,6 +21,8 @@ public class VentanaAdmin extends javax.swing.JFrame {
      */
     public VentanaAdmin() {
         initComponents();
+        setLocationRelativeTo(null); //centrado 
+        setTitle("Ventana Administrador"); //titulo
     }
 
     /**
@@ -207,12 +209,33 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
     private void agregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarUsuarioActionPerformed
        
+<<<<<<< Updated upstream
         AgregarUsers addUser = new AgregarUsers();
         escritorio.add(addUser);
         addUser.setLocation(150, 150);
         addUser.pack();
         //addUser.setResizable(true);
         //addUser.setClosable(true);
+=======
+        AgregarUserOk addUser = new AgregarUserOk();
+       
+        
+        //addUser.setLocation(150, 150);
+        addUser.pack();
+        
+        addUser.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        
+        addUser.setVisible(true);
+        
+        
+        
+      
+      addUser.setResizable(true);
+    addUser.setClosable(true); 
+     escritorio.add(addUser);
+        
+       
+>>>>>>> Stashed changes
         //VentanaAdmin.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //addUser.setVisible(true);
         addUser.show();
@@ -223,8 +246,10 @@ public class VentanaAdmin extends javax.swing.JFrame {
     private void editarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarUsuarioActionPerformed
         
         try {
-            EditarUsers editUser = new EditarUsers();
-            escritorio.add(editUser);
+            EditarUsers2 editUser = new EditarUsers2();
+            
+            escritorio.add(editUser).setMaximumSize(null);
+            
             editUser.setLocation(150, 150);
             editUser.show();
         } catch (SQLException ex) {

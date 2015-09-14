@@ -40,7 +40,7 @@ Conector c = new Conector();
             while (rs.next()) {                
                 Vendedores c = new Vendedores();
                 
-             c.setId(rs.getInt(1));
+             c.setId(rs.getString(1));
             
                 c.setNombre(rs.getString(2));
                 c.setUsuario(rs.getString(3));

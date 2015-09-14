@@ -1,0 +1,475 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Interfaz;
+
+import Negocio.VendedorNE;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import mysql.Conector;
+
+/**
+ *
+ * @author CRAVELO
+ */
+public class EditarUsers2 extends javax.swing.JInternalFrame {
+
+    /**
+     * Creates new form EditarUsers2
+     */
+    public Vendedores vendedores;
+    public VendedorNE vendedorNE;
+    public List<Vendedores> lista;
+
+    DefaultTableModel modelo;
+    public boolean opcion = false;
+
+    public void asignarEntradas() {
+        vendedores = new Vendedores();
+
+        vendedores.setNombre(txtnombre.getText());
+        vendedores.setApellido(apellido.getText());
+        vendedores.setPass1(pass.getSelectedText());
+        vendedores.setUsuario(usuario.getText());
+    }
+
+    public final void cargarCliente() {
+        String[] titulos = {"id", "nombre", "apellido", "usuario", "Direccion"};
+        modelo = new DefaultTableModel(null, titulos);
+
+        String[] fila = new String[5];
+        lista = vendedorNE.list();
+        for (Vendedores c : lista) {
+            fila[0] = String.valueOf(c.getId());
+            System.out.println("idddddddddddd" + fila[0]);
+            fila[1] = c.getNombre();
+            fila[2] = c.getUsuario();
+            fila[3] = c.getPass1();
+            fila[4] = c.getApellido();
+            fila[5] = c.getId();
+            System.out.println("aaaaaaaa" + fila[5]);
+            modelo.addRow(fila);
+        }
+        jTable2.setModel(modelo);
+    }
+
+    public void InsertarVendedro(String nombre, String apellido, String usuario, String pass, String id_actualizar) throws SQLException {
+
+        Conector c = new Conector();
+
+        String insert1 = "update Vendedor"
+                + "SET nombre=?, "
+                + " usuario=?,"
+                + "  pass=?,"
+                + "apellido=?,"
+                + "where idVendedor=" + id_actualizar;
+
+        PreparedStatement ps = c.conexion.prepareStatement(
+                "UPDATE Vendedor SET nombre = ?, usuario = ?, pass= ?, apellido= ? WHERE idVendedor =" + id_actualizar);
+
+        String insert = "update Vendedor"
+                + "(nombre, usuario, pass, apellido) VALUES"
+                + "(?,?,?,?)";
+        PreparedStatement pst = c.conexion.prepareStatement(insert1);
+        ps.setString(1, nombre);
+        ps.setString(2, usuario);
+        ps.setString(3, pass);
+        ps.setString(4, apellido);
+        ps.executeUpdate();
+        ps.close();
+
+        //falta mensaje de exito y validar contraseña y que no exista el usuario
+        //this.dispose(); //cierro ventana mas pequeña. 
+    }
+
+    public void InsertarVendedro2(String nombre, String apellido, String usuario, String pass, String id_actualizar) throws SQLException {
+
+        Conector c = new Conector();
+
+        String insert1 = "delete from Vendedor where idVendedor=" + id_actualizar + "";
+
+        PreparedStatement ps = c.conexion.prepareStatement(
+                "UPDATE Vendedor SET nombre = ?, usuario = ?, pass= ?, apellido= ? WHERE idVendedor =" + id_actualizar);
+
+        PreparedStatement pstmt = null;
+        pstmt = c.conexion.prepareStatement(insert1);
+
+        pstmt.executeUpdate();
+        pstmt.close();
+
+        //falta mensaje de exito y validar contraseña y que no exista el usuario
+        this.dispose(); //cierro ventana mas pequeña. 
+
+    }
+
+    public EditarUsers2() throws SQLException {
+        initComponents();
+
+        Conector c = new Conector();
+
+        ResultSet consulta = null;
+        int cantidad = 0;
+        String admin;
+
+        String select = "SELECT  nombre, apellido, usuario, pass, idVendedor FROM Vendedor where usuario <> 'admin'";
+
+        PreparedStatement ps = c.conexion.prepareStatement(select);
+        ResultSet rs = ps.executeQuery();
+        ResultSetMetaData rsm = rs.getMetaData();
+
+        ArrayList<Object[]> data = new ArrayList<>();
+        while (rs.next()) {
+
+            Object[] rows = new Object[rsm.getColumnCount()];
+            for (int i = 0; i < rows.length; i++) {
+                rows[i] = rs.getObject(i + 1);
+
+            }
+            data.add(rows);
+
+        }
+        DefaultTableModel dtm = (DefaultTableModel) this.jTable2.getModel();
+        for (int i = 0; i < data.size(); i++) {
+            dtm.addRow(data.get(i));
+
+        }
+
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        apellido = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        usuario = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        txtnombre = new javax.swing.JTextField();
+        pass = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setToolTipText("");
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Elegir Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Apellido", "Usuario", "Pass", "ID"
+            }
+        ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
+        );
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
+        jPanel1.setToolTipText("");
+
+        apellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apellidoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Nombre: ");
+
+        jLabel2.setText("Apellido:");
+
+        jLabel3.setText("Usuario:");
+
+        usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Contraseña:");
+
+        jButton2.setText("Guardar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        txtnombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnombreActionPerformed(evt);
+            }
+        });
+
+        pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passActionPerformed(evt);
+            }
+        });
+
+        txtID.setEditable(false);
+        txtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("ID");
+
+        jButton3.setText("Eliminar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtnombre)
+                                .addComponent(usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                .addComponent(apellido)
+                                .addComponent(pass))
+                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(36, 36, 36)
+                        .addComponent(jButton3)
+                        .addGap(19, 19, 19))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(47, 47, 47))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void apellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apellidoActionPerformed
+
+    private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usuarioActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+
+        if (txtnombre.getText().trim().length() != 0 && apellido.getText().trim().length() != 0
+                && usuario.getText().trim().length() != 0 && pass.getText().trim().length() != 0) {
+
+            String nombre = txtnombre.getText();
+            String apellid = apellido.getText();
+            String usuari = usuario.getText();
+
+            String pas = pass.getText();
+
+            String id_actualizar = txtID.getText();
+
+            try {
+                InsertarVendedro(nombre, apellid, usuari, pas, id_actualizar);
+                JOptionPane.showMessageDialog(null, "Usuario Ingresado con Éxito");
+            } catch (SQLException ex) {
+                Logger.getLogger(AgregarUsers.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Campos Vacíos o Contraseñas no Coinciden ");
+
+        }
+
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnombreActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        int filaselec = jTable2.getSelectedRow();
+        txtnombre.setText(jTable2.getValueAt(filaselec, 0).toString());
+        apellido.setText(jTable2.getValueAt(filaselec, 1).toString());
+        usuario.setText(jTable2.getValueAt(filaselec, 2).toString());
+        pass.setText(jTable2.getValueAt(filaselec, 3).toString());
+        txtID.setText(jTable2.getValueAt(filaselec, 4).toString());
+
+
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        String message = "Seguro que desea Eliminar?";
+        String title = "¿Eliminar vendedor?";
+    // display the JOptionPane showConfirmDialog 
+
+        if (txtnombre.getText().trim().length() != 0 && apellido.getText().trim().length() != 0
+                && usuario.getText().trim().length() != 0 && pass.getText().trim().length() != 0) {
+
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+
+                String nombre = txtnombre.getText();
+                String apellid = apellido.getText();
+                String usuari = usuario.getText();
+
+                String pas = pass.getText();
+
+                String id_actualizar = txtID.getText();
+
+                try {
+                    InsertarVendedro2(nombre, apellid, usuari, pas, id_actualizar);
+                    JOptionPane.showMessageDialog(null, "Usuario eliminado con Éxito");
+                } catch (SQLException ex) {
+                    Logger.getLogger(AgregarUsers.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
+            } 
+
+            // System.exit(0);
+        }else{JOptionPane.showMessageDialog(this, "Selecciona un Vendedor para Eliminar");} 
+
+// TODO add your handling code here:
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField apellido;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField pass;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtnombre;
+    private javax.swing.JTextField usuario;
+    // End of variables declaration//GEN-END:variables
+}
