@@ -211,7 +211,6 @@ public class VentanaAdmin extends javax.swing.JFrame {
        
 <<<<<<< Updated upstream
         AgregarUsers addUser = new AgregarUsers();
-        escritorio.add(addUser);
         addUser.setLocation(150, 150);
         addUser.pack();
         //addUser.setResizable(true);
@@ -239,6 +238,8 @@ public class VentanaAdmin extends javax.swing.JFrame {
         //VentanaAdmin.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //addUser.setVisible(true);
         addUser.show();
+        escritorio.add(addUser);
+
         
         
     }//GEN-LAST:event_agregarUsuarioActionPerformed
@@ -270,7 +271,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
     private void editarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarProductoActionPerformed
         
         
-    EditarProducts editarProducts = new EditarProducts();
+    EditarProducts editarProducts = new EditarProducts(escritorio);
     escritorio.add(editarProducts);
     editarProducts.setLocation(100, 100);
     editarProducts.pack();

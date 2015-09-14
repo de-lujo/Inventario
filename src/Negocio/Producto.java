@@ -6,12 +6,15 @@
 package Negocio;
 
 import DAO.Conexion;
+import Interfaz.AgregarProducts;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -108,11 +111,10 @@ public class Producto {
      public static void insertarProducto(String Consulta) throws SQLException{
      
         
-        //Conector c= new Conector();
-        PreparedStatement pst= c.conexion.prepareStatement(Consulta);
-        pst.executeUpdate();
-     
-     
+        PreparedStatement ps= c.conexion.prepareStatement(Consulta);
+        ps.executeUpdate();
+        ps.close();
+        
      
      }
      
@@ -155,7 +157,6 @@ public class Producto {
                }
                JOptionPane.showMessageDialog(null, "No existe resultados.");
           
-
             }
             
             
@@ -163,7 +164,7 @@ public class Producto {
                 
             for (int i = 0; i <datos.size(); i++) {
                 dtm.addRow(datos.get(i));
-             }
+              }
             }
         
     }
@@ -171,15 +172,40 @@ public class Producto {
      
      
      
-     public static void mostrarProducto(int id) throws SQLException{
+     public static void mostrarProducto(int id, JDesktopPane escritorio) throws SQLException{
      
+         String[] datos= new String[8];
+         
          String Consulta="SELECT *FROM producto where N_producto=" + id+";";
-         PreparedStatement pst= c.conexion.prepareStatement(Consulta);
-         ResultSet rs= pst.executeQuery(Consulta);
-         ResultSetMetaData rsm = rs.getMetaData();
-         
+         Statement st= c.conexion.createStatement();
+         ResultSet rs= st.executeQuery(Consulta);
+         //ResultSetMetaData rsm = rs.getMetaData();
   
+         while(rs.next()){
+             
+         datos[0]= rs.getString("valorCosto"); //valorCosto
+         datos[1]= rs.getString("talla"); //talla
+         datos[2]= rs.getString("color"); //color
+         datos[3]= rs.getString("sexo");//Sexo
+         datos[4]= rs.getString("codigoBarra");//Codigo Barra
+         datos[5]= rs.getString("Categoria_idCategoria"); //idCategoria
+         datos[6]= rs.getString("nombre");//nombre
+         //datos[7]= rs.getString(1); //id_Producto
+         }
          
+         
+         
+         
+        
+         AgregarProducts  nuevo= new AgregarProducts(datos, true, id);
+         
+         escritorio.add(nuevo);
+         
+         nuevo.setTitle("Actualizar Producto");
+         nuevo.pack();
+         nuevo.show();
+         nuevo.toFront();
+       
          // rs.getString(2);
         
      
