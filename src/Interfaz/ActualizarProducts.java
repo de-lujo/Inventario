@@ -23,18 +23,18 @@ import javax.swing.JOptionPane;
  *
  * @author Ian Quiroga
  */
-public class AgregarProducts extends javax.swing.JInternalFrame {
+public class ActualizarProducts extends javax.swing.JInternalFrame {
 
     Boolean bool= false;
     int idTabla=0;
     
-    public AgregarProducts() {
+    public ActualizarProducts() {
         initComponents();
         
     }
     
     
-    public AgregarProducts(String[] datos, Boolean bool, int idTabla) {
+    public ActualizarProducts(String[] datos, Boolean bool, int idTabla) {
         
         //String nombre, String barra, int costo, int venta, int i_talla, String col, int sex, int cat, int bodega, int tienda, int descuento 
         initComponents();
@@ -114,7 +114,7 @@ public class AgregarProducts extends javax.swing.JInternalFrame {
         agregarProducto = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Agregar Producto");
+        setTitle("Actualizar Producto");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
 
@@ -302,7 +302,7 @@ public class AgregarProducts extends javax.swing.JInternalFrame {
         );
 
         agregarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
-        agregarProducto.setText("Agregar Producto");
+        agregarProducto.setText("Actualizar Producto");
         agregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarProductoActionPerformed(evt);
@@ -362,11 +362,11 @@ public class AgregarProducts extends javax.swing.JInternalFrame {
         
         String cod= codigoBarra.getText();
         
-       try {
+      /* try {
             val= Producto.validaProducto(cod);
         } catch (SQLException ex) {
             Logger.getLogger(AgregarProducts.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         
        
         

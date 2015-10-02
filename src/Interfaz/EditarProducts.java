@@ -80,6 +80,11 @@ public class EditarProducts extends javax.swing.JInternalFrame {
         jLabel7.setText("Talla :");
 
         talla.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
+        talla.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tallaItemStateChanged(evt);
+            }
+        });
         talla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tallaActionPerformed(evt);
@@ -94,36 +99,37 @@ public class EditarProducts extends javax.swing.JInternalFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(precioMin))
+                        .addComponent(jLabel7)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(precioMin))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(talla, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7))
+                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(talla, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 70, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(63, 63, 63)
+                        .addComponent(precioMin))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(talla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(precioMin)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/codigo.png"))); // NOI18N
@@ -138,7 +144,7 @@ public class EditarProducts extends javax.swing.JInternalFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/categoria.jpg"))); // NOI18N
         jLabel4.setText("Categoría :");
 
-        categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Ropa", "Accesorio", "Zapato Americano", "Zapato Chino", "Babero", "Mantas", "Porta Bebé", "Set Cuna" }));
+        categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Accesorio", "Babero", "Mantas", "Porta Bebé", "Ropa", "Set Cuna", "Zapato Americano", "Zapato Chino", " " }));
         categoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 categoriaItemStateChanged(evt);
@@ -207,7 +213,7 @@ public class EditarProducts extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nombre", "Talla", "Color", "Valor", "Tienda", "Bodega"
+                "Nombre", "Talla", "Color", "Precio", "Tienda", "Bodega"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -379,7 +385,7 @@ public class EditarProducts extends javax.swing.JInternalFrame {
         
         if(talla.equals("Ropa") || talla.equals("Accesorio") ){
             
-            String[] combo1= new String[17];
+            String[] combo1= new String[20];
             
             combo1[0] = "OS";
             combo1[1] = "NB";
@@ -391,13 +397,16 @@ public class EditarProducts extends javax.swing.JInternalFrame {
             combo1[7] = "9 Meses";
             combo1[8] = "9-12 Meses";
             combo1[9] = "12 Meses";
-            combo1[10] = "18 Meses";
-            combo1[11] = "24 Meses";
-            combo1[12] = "3";
-            combo1[13] = "4";
-            combo1[14] = "5";
-            combo1[15] = "6";
-            combo1[16] = "7";
+            combo1[10] = "12-18 Meses";
+            combo1[11] = "18 Meses";
+            combo1[12] = "18-24 Meses";
+            combo1[13] = "24 Meses";
+            combo1[14] = "3";
+            combo1[15] = "4";
+            combo1[16] = "5";
+            combo1[17] = "6";
+            combo1[18] = "7";
+            combo1[19]="Pre";
  
             return combo1;
 
@@ -441,7 +450,7 @@ public class EditarProducts extends javax.swing.JInternalFrame {
         else{
         
             String[] combo= new String[1];
-            combo[0]=" ";
+            combo[0]="OS";
             
             return combo;
         
@@ -457,7 +466,6 @@ public class EditarProducts extends javax.swing.JInternalFrame {
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
 
     if (tablas.getSelectedRow() != -1){
-        
         
         
         try {
@@ -501,7 +509,7 @@ public class EditarProducts extends javax.swing.JInternalFrame {
 
     private void categoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_categoriaItemStateChanged
    
-        if (evt.getStateChange() == ItemEvent.SELECTED){
+      if (evt.getStateChange() == ItemEvent.SELECTED){
         
             if (this.categoria.getSelectedIndex() >0){
             
@@ -512,6 +520,10 @@ public class EditarProducts extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_categoriaItemStateChanged
+
+    private void tallaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tallaItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tallaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

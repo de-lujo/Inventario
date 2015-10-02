@@ -6,6 +6,7 @@
 package Negocio;
 
 import DAO.Conexion;
+import Interfaz.ActualizarProducts;
 import Interfaz.AgregarProducts;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -174,7 +175,7 @@ public class Producto {
      
      public static void mostrarProducto(int id, JDesktopPane escritorio) throws SQLException{
      
-         String[] datos= new String[8];
+         String[] datos= new String[9];
          
          String Consulta="SELECT *FROM producto where N_producto=" + id+";";
          Statement st= c.conexion.createStatement();
@@ -188,16 +189,18 @@ public class Producto {
          datos[2]= rs.getString("color"); //color
          datos[3]= rs.getString("sexo");//Sexo
          datos[4]= rs.getString("codigoBarra");//Codigo Barra
-         datos[5]= rs.getString("Categoria_idCategoria"); //idCategoria
+         datos[5]= rs.getString("categoria"); //Categoria
          datos[6]= rs.getString("nombre");//nombre
-         //datos[7]= rs.getString(1); //id_Producto
+         datos[7]= rs.getString("stockBodega"); //stockBodega
+         datos[8]= rs.getString("stockTienda");//id_Producto
+         
          }
          
          
          
          
         
-         AgregarProducts  nuevo= new AgregarProducts(datos, true, id);
+         ActualizarProducts  nuevo= new ActualizarProducts(datos, true, id);
          
          escritorio.add(nuevo);
          
@@ -211,6 +214,28 @@ public class Producto {
      
      
      
+     
+     }
+     
+     
+     
+     public static boolean validaProducto( String cod) throws SQLException{
+     
+         String Consulta="SELECT count(N_producto) as valor from producto where codigoBarra=" +cod+";";
+         Statement st= c.conexion.createStatement();
+         ResultSet rs= st.executeQuery(Consulta);
+         int valor=0;
+         
+         while(rs.next()){
+         
+             valor=Integer.parseInt(rs.getString("valor"));
+         
+         }
+         
+         if (valor == 1) return true;
+         
+         else return false;
+         
      
      }
      

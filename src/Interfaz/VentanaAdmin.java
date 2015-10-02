@@ -209,13 +209,6 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
     private void agregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarUsuarioActionPerformed
        
-<<<<<<< Updated upstream
-        AgregarUsers addUser = new AgregarUsers();
-        addUser.setLocation(150, 150);
-        addUser.pack();
-        //addUser.setResizable(true);
-        //addUser.setClosable(true);
-=======
         AgregarUserOk addUser = new AgregarUserOk();
        
         
@@ -232,13 +225,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
       addUser.setResizable(true);
     addUser.setClosable(true); 
      escritorio.add(addUser);
-        
-       
->>>>>>> Stashed changes
-        //VentanaAdmin.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //addUser.setVisible(true);
-        addUser.show();
-        escritorio.add(addUser);
+
 
         
         
